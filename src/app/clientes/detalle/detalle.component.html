@@ -1,0 +1,136 @@
+<div
+  *ngIf="modalService.modal"
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  style="display: block;"
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ titulo }}</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="cerrarModal()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- cuerpo del modal -->
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+              <ul class="list-group text-dark mb-3" *ngIf="cliente">
+                <li class="list-group-item bg-primary">{{ cliente.nombre }}</li>
+                <li class="list-group-item">{{ cliente.apellido }}</li>
+                <li class="list-group-item">{{ cliente.email }}</li>
+                <li class="list-group-item">{{ cliente.region.nombre }}</li>
+                <li class="list-group-item">
+                  {{ cliente.createdAt | date: "fullDate" }}
+                </li>
+              </ul>
+
+              <div
+                class="input-group"
+                *ngIf="authService.hasRole('ROLE_ADMIN')"
+              >
+                <div class="custom-file">
+                  <input
+                    type="file"
+                    class="custom-file-input"
+                    id="inputGroupFile04"
+                    (change)="seleccionarFoto($event)"
+                    aria-describedby="inputGroupFileAddon04"
+                  />
+                  <label class="custom-file-label" for="inputGroupFile04"
+                    >Seleccionar Foto</label
+                  >
+                </div>
+
+                <div
+                  class="input-group-append"
+                  *ngIf="authService.hasRole('ROLE_ADMIN')"
+                >
+                  <button
+                    class="btn btn-outline-secondary btn-sm"
+                    type="button"
+                    (click)="subirFoto()"
+                    id="inputGroupFileAddon04"
+                  >
+                    Subir Foto
+                  </button>
+                </div>
+              </div>
+              <div *ngIf="progreso > 0" class="progress">
+                <div
+                  class="progress-bar progress-bar-striped"
+                  role="progressbar"
+                  [ngStyle]="{ width: progreso + '%' }"
+                  style="width: 10%;"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  {{ progreso }}%
+                </div>
+              </div>
+            </div>
+            <div class="col-sm">
+              <!--   ese if dice si cliente existe y es distinto a nulo -->
+              <img
+                *ngIf="cliente?.foto"
+                [src]="url + '/uploads/img/' + cliente.foto"
+                alt=""
+                class="img-thumbnail rounded"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div 
+              class="alert alert-info my-4"
+              *ngIf="cliente.facturas.length == 0"
+            >
+              No hay facturas asignadas para el cliente {{ cliente.nombre }}
+              {{ cliente.apellido }}
+            </div>
+            <table class="table table-bordered table-striped my-4"
+              *ngIf="cliente.facturas.length > 0"
+            >
+              <thead>
+                <th>Id</th>
+                <th>descripcion</th>
+                <th>fecha</th>
+                <th>total</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let factura of cliente.facturas">
+                  <td>{{ factura.id }}</td>
+                  <td>{{ factura.descripcion }}</td>
+                  <td>{{ factura.createdAt }}</td>
+                  <td>{{ factura.total }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- fin del cuerpo del modal -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="cerrarModal()"
+          data-dismiss="modal"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
