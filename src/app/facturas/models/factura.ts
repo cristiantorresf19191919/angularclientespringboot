@@ -8,5 +8,13 @@ export class Factura {
     cliente: Cliente;
     total:number;
     createdAt: Date;
+
+    calcularGranTotal():number{
+        this.total = 0;
+        this.total = this.items.reduce(((ac,item:ItemFactura)=>{
+            return ac + item.calcularImporte();
+        }),0)
+        return this.total;
+    }
     
 }

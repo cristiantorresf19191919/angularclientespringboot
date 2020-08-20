@@ -4,75 +4,78 @@
   </li>
 </ul>
 
-<div class="card bg-dark text-white">
-  <div class="card-header">
-    {{ titulo }}
-  </div>
+<div class="p-4">
 
-  <div class="card-body">
-    <form #clienteForm="ngForm">
-      <div class="form-group row">
-        <label for="nombre" class="col-form-label col-sm-2">nombre</label>
-        <div class="col-sm-6">
-          <input
-            type="text"
-            class="form-control"
-            [(ngModel)]="cliente.nombre"
-            name="nombre"
-            #nombre="ngModel"
-          /><!-- required minlength="4" -->
-          <div
-            class="alert alert-danger"
-            *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
-          >
-            <div *ngIf="nombre.errors.required">
-              Nombre es requerido
+  <div class="card bg-dark text-white">
+    <div class="card-header text-center">
+      {{ titulo }}
+    </div>
+    
+    <div class="card-body">
+      <form #clienteForm="ngForm">
+        <div class="form-group row">
+    
+            <label for="nombre" class="col-form-label col-lg-4 text-center">nombre</label>
+            <div class="col-lg-6">
+              <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="cliente.nombre"
+              name="nombre"
+              #nombre="ngModel"
+              /><!-- required minlength="4" -->
+              <div
+              class="alert alert-danger"
+              *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
+              >
+              <div *ngIf="nombre.errors.required">
+                Nombre es requerido
+              </div>
+              <div *ngIf="nombre.errors.minlength">
+                  Nombre debe tener al menos 4 caracteres
+                </div>
+              </div>
             </div>
-            <div *ngIf="nombre.errors.minlength">
-              Nombre debe tener al menos 4 caracteres
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <h5>{{ cliente.nombre }}</h5>
-        </div>
-      </div>
 
+      
+      </div> <!-- form-group row -->
+      
       <div class="form-group row">
-        <label for="apellido" class="col-form-label col-sm-2">apellido</label>
-        <div class="col-sm-6">
+
+        <label for="apellido" class="col-form-label col-lg-4 text-center">apellido</label>
+        <div class="col-lg-6">
           <input
-            type="text"
+          type="text"
             class="form-control"
             [(ngModel)]="cliente.apellido"
             name="apellido"
             #apellido="ngModel"
-          /><!-- required -->
-          <div
+            /><!-- required -->
+            <div
             class="alert alert-danger"
             *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)"
-          >
+            >
             <div *ngIf="apellido.errors.required">
               El apellido es requerido
             </div>
           </div>
         </div>
-      </div>
+      </div> <!-- form-group row -->
 
       <div class="form-group row">
-        <label for="email" class="col-form-label col-sm-2">email</label>
-        <div class="col-sm-6">
+        <label for="email" class="col-form-label col-lg-4 text-center">email</label>
+        <div class="col-lg-6">
           <input
             type="email"
             class="form-control"
             [(ngModel)]="cliente.email"
             name="email"
             #email="ngModel"
-          /><!-- required email -->
-          <div
+            /><!-- required email -->
+            <div
             class="alert alert-danger"
             *ngIf="email.invalid && (email.dirty || email.touched)"
-          >
+            >
             <div *ngIf="email.errors.required">
               El email es requerido
             </div>
@@ -81,60 +84,68 @@
             </div>
           </div>
         </div>
-      </div>
-
+      </div> <!-- form-group row -->
+      
       <div class="form-group row">
-        <label for="createdAt" class="col-form-label col-sm-2">fecha</label>
-        <div class="col-sm-6">  
-            <mat-form-field style="width: 100%;">
-                <input
-                class="form-control"
-                name="createdAt"
-                #createdAt="ngModel"
-                [(ngModel)]="cliente.createdAt"
+        <label for="createdAt" class="col-form-label col-lg-4 text-center">fecha</label>
+        <div class="col-lg-6">  
+          <mat-form-field style="width: 100%;">
+
+            <input
+            class="form-control"
+            name="createdAt"
+            #createdAt="ngModel"
+            [(ngModel)]="cliente.createdAt"
                 matInput
                 [matDatepicker]="picker"
                 style="width: 100%; background: white; color: black;"
-              />
-              <mat-datepicker-toggle
+                />
+
+                <mat-datepicker-toggle
                 matSuffix
                 [for]="picker"
-                style="color: white;"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>       
-         
+                style="color: white; font-size: 25px;"
+                >
+             
+              </mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker> 
 
-          <div
+
+            
+            </mat-form-field>    
+             
+    
+            
+            <div
             class="alert alert-danger"
             *ngIf="createdAt.invalid && (createdAt.dirty || createdAt.touched)"
           >
           La fecha es requerido
-            <div *ngIf="createdAt.errors.required">
-              La fecha es requerido
-            </div>
+          <div *ngIf="createdAt.errors.required">
+            La fecha es requerido
           </div>
         </div>
       </div>
-
-      <div class="form-group row">
-        <label for="createdAt" class="col-form-label col-sm-2">Region</label>
-        <div class="col-sm-6">                  
+    </div> <!-- form-group row -->
+    
+    <div class="form-group row">
+      <label for="createdAt" class="col-form-label col-lg-4 text-center">Region</label>
+      <div class="col-lg-6">                  
           <select [compareWith]="compararRegion" *ngIf="regiones" name="region" [(ngModel)]="cliente.region" class="form-control">
             
             <option  *ngFor="let region of regiones" [ngValue]="region">{{region.nombre}}</option>
           </select>
-
+          
           <div
-            class="alert alert-danger"
-            *ngIf="createdAt.invalid && (createdAt.dirty || createdAt.touched)"
+          class="alert alert-danger"
+          *ngIf="createdAt.invalid && (createdAt.dirty || createdAt.touched)"
           >
-            <div *ngIf="createdAt.errors.required">
-              La Region es requerida
+          <div *ngIf="createdAt.errors.required">
+            La Region es requerida
             </div>
           </div>
         </div>
-      </div>
+      </div> <!-- form-group row -->
 
       <div class="form-group row">
         <div class="col-sm-6">
@@ -144,7 +155,7 @@
             (click)="create()"
             *ngIf="!cliente.id; else elseBlock"
             [disabled]="!clienteForm.form.valid"
-          >
+            >
             Crear
           </button>
 
@@ -154,12 +165,14 @@
               role="button"
               (click)="update()"
               [disabled]="!clienteForm.form.valid"
-            >
+              >
               Actualizar
             </button>
           </ng-template>
         </div>
-      </div>
+      </div> <!-- form-group row -->
     </form>
   </div>
+</div> <!-- card -->
+
 </div>

@@ -8,3 +8,11 @@ body{
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover {
+    background-color: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.561);
+    width: 50%;
+    font-weight: 700;
+    margin: 0 auto;
+}

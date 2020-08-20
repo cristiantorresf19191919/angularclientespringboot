@@ -1,4 +1,3 @@
-<detalle-cliente [cliente]="clienteSeleccionado"></detalle-cliente>
 
 <div class="card border-primary mb-3">
   <div class="card-header">Clientes</div>
@@ -26,10 +25,11 @@
           <th *ngIf="authService.hasRole('ROLE_ADMIN')">#</th>
           <th>nombre</th>
           <th>apellido</th>
-          <th>email</th>
+          <th>email </th>
           <th>fecha</th>
-          <th></th>
-          <th></th>
+          <th>crear factura</th>
+          <th *ngIf="authService.hasRole('ROLE_ADMIN')">editar</th>
+          <th *ngIf="authService.hasRole('ROLE_ADMIN')">eliminar</th>
         </tr>
       </thead>
       <tbody>
@@ -38,9 +38,7 @@
               
             <button
               style="border: none;"
-              (click)="dispararPopUp(cliente)"
-              data-toggle="modal"
-              data-target="#exampleModal"
+              (click)="mostrarPopUp(cliente)"           
             >
               <!--   ese if dice si cliente existe y es distinto a nulo -->
               <img
@@ -63,6 +61,11 @@
           <td>{{ cliente.apellido | uppercase }}</td>
           <td>{{ cliente.email }}</td>
           <td>{{ cliente.createdAt | date: "EEEE dd, MMMM yyyy" }}</td>
+          <td>
+            <button class="btn btn-success btn-sm">
+              <a [routerLink]="['/facturas/form', cliente.id]" class="text-white text-bold">Crear factura</a>
+            </button>
+          </td>
           <td>
             <button
               type="button"

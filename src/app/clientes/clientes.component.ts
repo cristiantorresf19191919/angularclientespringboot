@@ -7,6 +7,8 @@ import { tap } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ModalService } from './detalle/modal.service';
 import { AuthService } from '../usuarios/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DetalleComponent } from './detalle/detalle.component';
 
 @Component({
   selector: 'app-clientes',
@@ -19,12 +21,14 @@ export class ClientesComponent implements OnInit {
   public url: string;
   public noPic: string;
   clienteSeleccionado: Cliente;
+
   constructor(
     private clienteService: ClienteService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private modalService: ModalService,
-    public authService: AuthService
+    public modalService: ModalService,
+    public authService: AuthService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -81,4 +85,20 @@ export class ClientesComponent implements OnInit {
     this.clienteSeleccionado = cliente;
     this.modalService.abrirModal();
   }
+
+  mostrarPopUp(cliente:Cliente):void{
+
+    const dialogRef = this.dialog.open(DetalleComponent,{
+      width:"80vw",
+      data:{cliente}
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("el popup ha sido cerrado");
+      console.log(result);
+    })
+
+  }
+
+  
 }

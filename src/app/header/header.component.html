@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar">
   <a class="navbar-brand" href="#">Navbar</a>
   <button
     class="navbar-toggler"
@@ -12,7 +12,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto text-center">
       <li class="nav-item active" routerLinkActive="active">
         <a class="nav-link" [routerLink]="[ '/']"
           >Home <span class="sr-only">(current)</span></a>
@@ -24,14 +24,20 @@
         <a class="nav-link" routerLink="/clientes">Clientes</a>
       </li>      
     </ul>
-    <ul class="navbar-nav navbar-right">
+    <ul class="navbar-nav navbar-right text-center">
       <li *ngIf="!estaAutenticado"><a [routerLink]="[ '/login']" class="btn btn-outline-primary">Login</a></li>
       <li class="dropdown" *ngIf="estaAutenticado && usuario">
-        <button class="btn btn-secondary dropdown-toggle btn-outline-primary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn btn-dark dropdown-toggle btn-outline-primary text-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{usuario.username}}
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#" (click)="logout()">LogOut</a>    
+        <div class="dropdown-menu bg-dark text-center text-white" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item text-white bg-dark" style="text-decoration: none;" href="#" (click)="logout()">LogOut</a>    
+        </div>
+        <div class="dropdown-menu bg-dark text-center text-white">
+          test
+        </div>
+        <div class="dropdown-menu bg-dark text-center text-white">  
+          cristian script es el mejor
         </div>
       </li>
     </ul>

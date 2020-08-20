@@ -1,32 +1,22 @@
-<div
-  *ngIf="modalService.modal"
-  class="modal fade"
-  id="exampleModal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
+<div 
+mat-dialog-content
   style="display: block;"
 >
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{ titulo }}</h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-          (click)="cerrarModal()"
-        >
-          <span aria-hidden="true">&times;</span>
+        <h1>{{ titulo }}</h1>      
+        <button (click)="onNoClick()" style="border: none; outline: none; background-color: transparent;">
+
+          <mat-icon style="font-size: xx-large;"  aria-hidden="false" aria-label="Example home icon">clear</mat-icon>  
         </button>
+   
+      
+        
       </div>
       <div class="modal-body">
         <!-- cuerpo del modal -->
         <div class="container">
           <div class="row">
-            <div class="col-sm">
+            <div class="col-lg">
               <ul class="list-group text-dark mb-3" *ngIf="cliente">
                 <li class="list-group-item bg-primary">{{ cliente.nombre }}</li>
                 <li class="list-group-item">{{ cliente.apellido }}</li>
@@ -43,8 +33,7 @@
               >
                 <div class="custom-file">
                   <input
-                    type="file"
-                    class="custom-file-input"
+                    type="file"                    
                     id="inputGroupFile04"
                     (change)="seleccionarFoto($event)"
                     aria-describedby="inputGroupFileAddon04"
@@ -80,17 +69,27 @@
                   {{ progreso }}%
                 </div>
               </div>
-            </div>
-            <div class="col-sm">
+            </div> <!-- col-lg -->
+            <div class="col-lg img-container">
               <!--   ese if dice si cliente existe y es distinto a nulo -->
               <img
                 *ngIf="cliente?.foto"
                 [src]="url + '/uploads/img/' + cliente.foto"
                 alt=""
-                class="img-thumbnail rounded"
+                class="img-thumbnail rounded img"
               />
-            </div>
-          </div>
+              <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+               *ngIf="!cliente?.foto" class="img" alt="">
+            </div> <!-- col-lg -->
+          </div> <!-- row -->
+
+          <div class="row">
+            <button class="btn btn-success btn-md mx-auto" (click)="onNoClick()">
+              <a [routerLink]="[ '/facturas/form', cliente.id ]" class="text-white">Crear Factura</a>
+            </button>
+          </div> <!-- row -->
+
+
           <div class="row">
             <div 
               class="alert alert-info my-4"
@@ -99,14 +98,14 @@
               No hay facturas asignadas para el cliente {{ cliente.nombre }}
               {{ cliente.apellido }}
             </div>
-            <table class="table table-bordered table-striped my-4"
-              *ngIf="cliente.facturas.length > 0"
-            >
+            <table class="table table-bordered table-striped my-4" *ngIf="cliente.facturas.length > 0">
               <thead>
                 <th>Id</th>
                 <th>descripcion</th>
                 <th>fecha</th>
                 <th>total</th>
+                <th>detalle</th>
+                <th>eliminar</th>
               </thead>
               <tbody>
                 <tr *ngFor="let factura of cliente.facturas">
@@ -114,11 +113,15 @@
                   <td>{{ factura.descripcion }}</td>
                   <td>{{ factura.createdAt }}</td>
                   <td>{{ factura.total }}</td>
+                  <td><button class="btn btn-primary btn-sm" (click)="onNoClick()" type="button"
+                   [routerLink]="[ '/facturas', factura.id]"> Ver
+                  </button></td>
+                  <td><button class="btn btn-danger btn-sm" (click)="deleteFactura(factura)" >Eliminar</button></td>
                 </tr>
               </tbody>
             </table>
-          </div>
-          <!-- fin del cuerpo del modal -->
+          </div>  <!-- row -->
+       
         </div>
       </div>
       <div class="modal-footer">
@@ -131,6 +134,5 @@
           Close
         </button>
       </div>
-    </div>
-  </div>
+
 </div>

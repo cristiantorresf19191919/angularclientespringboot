@@ -23,6 +23,8 @@ import { LoginFormComponent } from './usuarios/login-form/login-form.component';
 import { TokenInterceptor } from './usuarios/interceptores/token.interceptor';
 import { AuthInterceptor } from './usuarios/interceptores/auth.interceptor';
 import { LabelComponentComponent } from './label-component/label-component.component';
+import { DetalleFacturaComponent } from './facturas/detalle-factura.component';
+import { FacturaComponent } from './facturas/factura/factura.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -39,6 +41,8 @@ registerLocaleData(localeEs, 'es');
     LoginComponent,
     LoginFormComponent,
     LabelComponentComponent,
+    DetalleFacturaComponent,
+    FacturaComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +52,7 @@ registerLocaleData(localeEs, 'es');
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModulePapa,
+    ReactiveFormsModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' },
   {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor,multi:true},

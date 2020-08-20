@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   estaAutenticado:boolean =true;
   usuario:Usuario;
   constructor(
-    private authService:AuthService,
+    public authService:AuthService,
     private router: Router
     
 
